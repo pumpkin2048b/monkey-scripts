@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Highlight purchased item on DLsite
 // @namespace    http://tampermonkey.net/
-// @version      0.3.3
+// @version      0.3.4
 // @description  購入済みアイテムの背景色を変更します
 // @author       PUMPKIN
 // @match        https://www.dlsite.com/*
@@ -29,10 +29,7 @@
         });
     }
 
-    // 初期ロード時に一度実行
-    highlightPurchasedItems();
-
-    // 動的な変更を監視して、追加された要素にも適用する
+    // 動的な変更を監視して、追加された要素に適用する
     const observer = new MutationObserver(() => {
         highlightPurchasedItems(); // DOM に変更があった場合、常に全体を再探索
     });
