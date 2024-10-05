@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Highlight purchased item on DLsite
 // @namespace    http://tampermonkey.net/
-// @version      0.3.2
+// @version      0.3.3
 // @description  購入済みアイテムの背景色を変更します
 // @author       PUMPKIN
 // @match        https://www.dlsite.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // @license      MIT
-// @run-at       document-start
+// @run-at       document-end
 // ==/UserScript==
 
 (function() {
