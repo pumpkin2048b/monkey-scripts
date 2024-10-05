@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Highlight purchased item on DLsite
 // @namespace    http://tampermonkey.net/
-// @version      0.3.1
+// @version      0.3.2
 // @description  購入済みアイテムの背景色を変更します
 // @author       PUMPKIN
 // @match        https://www.dlsite.com/*
@@ -19,15 +19,12 @@
     // 購入済みアイテムに対して背景色を設定する関数
     function highlightPurchasedItems() {
         document.querySelectorAll('.btn_dl').forEach(btn => {
-            if (btn.closest('.search_result_img_box_inner')) {
-                // 割引中、サークル情報等
-                btn.closest('.search_result_img_box_inner').style.backgroundColor = backgroundColor;
-            } else if (btn.closest('.n_worklist_item')) {
-                // サークル情報の割引中作品
-                btn.closest('.n_worklist_item').style.backgroundColor = backgroundColor;
-            } else if (btn.closest('tr')) {
-                // 検索結果
-                btn.closest('tr').style.backgroundColor = backgroundColor;
+            // 割引中、サークル情報等：.search_result_img_box_inner
+            // サークル情報の割引中作品：.n_worklist_item
+            // 検索結果：tr
+            const parent = btn.closest('.search_result_img_box_inner, .n_worklist_item, tr');
+            if (parent) {
+                parent.style.backgroundColor = backgroundColor;
             }
         });
     }
@@ -37,12 +34,11 @@
 
     // 動的な変更を監視して、追加された要素にも適用する
     const observer = new MutationObserver(() => {
-       highlightPurchasedItems(); // 追加されたノードに対してハイライトを適用
+        highlightPurchasedItems(); // DOM に変更があった場合、常に全体を再探索
     });
 
-    observer.observe(document, {
+    observer.observe(document.body, {
         subtree: true,
         childList: true, // 子要素の追加・削除を監視
-        attributes: false, // 属性の変化は無視
     });
 })();
